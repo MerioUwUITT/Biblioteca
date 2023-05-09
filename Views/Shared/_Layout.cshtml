@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/materialize.css" rel="stylesheet" />
+    <script src="~/Scripts/materialize.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="~/Content/glow.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #1a1A1A;
+            color: #fff
+        }
+
+        .responsive-table {
+            border: 1px solid yellow;
+        }
+
+        td {
+            border: 1px solid yellow;
+        }
+
+        .sidebar {
+            background-color: #1a1A1A;
+            border: 1px solid yellow;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* center the buttons horizontally */
+            justify-content: flex-start;
+            padding-top: 30px; /* add space at the top of the sidebar */
+        }
+
+        .sidebar-list ul li a {
+            color: white;
+            border: 1px solid yellow;
+            margin-bottom: 5px;
+            margin-left: 100px; /* add margin to the left */
+        }
+    </style>
+
+</head>
+<body>
+
+    <nav class="page-footer amber accent-3">
+    </nav>
+
+    @if (ViewContext.RouteData.Values["Action"].ToString() != "Index") {
+        <div class="row">
+            <div class="col s12 m4 l2">
+                <div class="sidebar">
+                    <ul>
+                        <a href="~/Home/Index" type="button" class="waves-effect waves-light btn grey darken-4"><i class="material-icons right">menu</i>Inicio</a>
+                        <a href="~/Home/ListaLibros" type="button" class="waves-effect waves-light btn grey darken-4"><i class="material-icons right">library_books</i>Libros</a>
+                        <a href="~/Home/ListaCategorias" type="button" class="waves-effect waves-light btn grey darken-4"><i class="material-icons right">playlist_add</i>Categorías</a>
+                        <a href="~/Home/ListaClientes" type="button" class="waves-effect waves-light btn grey darken-4"><i class="material-icons right">account_circle</i>Clientes</a>
+                        <a href="~/Home/ListaPersonal" type="button" class="waves-effect waves-light btn grey darken-4"><i class="material-icons right">face</i>Empleados</a>
+                        <a href="~/Home/ListaChecadas" type="button" class="waves-effect waves-light btn grey darken-4"><i class="material-icons right">contacts</i>Checadas</a>
+                        <a href="~/Home/ListaTipoPrestamo" type="button" class="waves-effect waves-light btn grey darken-4"><i class="material-icons right">apps</i>Tipo Prestamo</a>
+                    </ul>
+                </div>
+            </div>
+            <div class="col s12 m4 l12">
+                <div class="container">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    } else {
+        <div class="container">
+            @RenderBody()
+        </div>
+    }
+
+</body>
+</html>

@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BibliotecaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Categoria_libro">
+    <Key>
+      <PropertyRef Name="id_categoria_libro" />
+    </Key>
+    <Property Name="id_categoria_libro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Libroes" Relationship="Self.fk_id_categoria_libro" FromRole="Categoria_libro" ToRole="Libro" />
+    <Property Name="Activo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Checada">
+    <Key>
+      <PropertyRef Name="id_checada" />
+    </Key>
+    <Property Name="id_checada" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_personal" Type="Int32" Nullable="false" />
+    <Property Name="fecha" Type="DateTime" Precision="0" />
+    <Property Name="hora_entrada" Type="Time" Precision="7" />
+    <Property Name="hora_salida" Type="Time" Precision="7" />
+    <NavigationProperty Name="Personal" Relationship="Self.fk_personal" FromRole="Checada" ToRole="Personal" />
+    <Property Name="Pagado" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="id_cliente" />
+    </Key>
+    <Property Name="id_cliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="direccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Prestamoes" Relationship="Self.fk_cliente_prestamo" FromRole="Cliente" ToRole="Prestamo" />
+    <NavigationProperty Name="Ventas" Relationship="Self.fk_cliente_venta" FromRole="Cliente" ToRole="Venta" />
+    <Property Name="Activo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Libro">
+    <Key>
+      <PropertyRef Name="id_libro" />
+    </Key>
+    <Property Name="id_libro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_categoria_libro" Type="Int32" Nullable="false" />
+    <Property Name="titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="autor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="editorial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="numero_copias" Type="Int32" />
+    <Property Name="precio" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Categoria_libro" Relationship="Self.fk_id_categoria_libro" FromRole="Libro" ToRole="Categoria_libro" />
+    <NavigationProperty Name="PrestamoLibroes" Relationship="Self.fk_PrestamoLibro_Libro" FromRole="Libro" ToRole="PrestamoLibro" />
+    <NavigationProperty Name="VentaLibroes" Relationship="Self.fk_VentaLibro_Libro" FromRole="Libro" ToRole="VentaLibro" />
+    <Property Name="Activo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Personal">
+    <Key>
+      <PropertyRef Name="id_personal" />
+    </Key>
+    <Property Name="id_personal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="puesto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="sueldo" Type="Decimal" Precision="10" Scale="2" />
+    <NavigationProperty Name="Checadas" Relationship="Self.fk_personal" FromRole="Personal" ToRole="Checada" />
+    <NavigationProperty Name="Prestamoes" Relationship="Self.fk_personal_prestamo" FromRole="Personal" ToRole="Prestamo" />
+    <NavigationProperty Name="Ventas" Relationship="Self.fk_personal_venta" FromRole="Personal" ToRole="Venta" />
+    <Property Name="Activo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Prestamo">
+    <Key>
+      <PropertyRef Name="id_prestamo" />
+    </Key>
+    <Property Name="id_prestamo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_tipo_prestamo" Type="Int32" />
+    <Property Name="fecha_prestamo" Type="DateTime" Precision="0" />
+    <Property Name="fecha_devolucion" Type="DateTime" Precision="0" />
+    <Property Name="id_personal" Type="Int32" Nullable="false" />
+    <Property Name="id_cliente" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cliente" Relationship="Self.fk_cliente_prestamo" FromRole="Prestamo" ToRole="Cliente" />
+    <NavigationProperty Name="Personal" Relationship="Self.fk_personal_prestamo" FromRole="Prestamo" ToRole="Personal" />
+    <NavigationProperty Name="PrestamoLibroes" Relationship="Self.fk_PrestamoLibro_Prestamo" FromRole="Prestamo" ToRole="PrestamoLibro" />
+    <NavigationProperty Name="Tipo_De_Prestamo" Relationship="Self.fk_tipo_prestamo" FromRole="Prestamo" ToRole="Tipo_De_Prestamo" />
+  </EntityType>
+  <EntityType Name="PrestamoLibro">
+    <Key>
+      <PropertyRef Name="id_prestamo" />
+      <PropertyRef Name="id_libro" />
+    </Key>
+    <Property Name="id_prestamo" Type="Int32" Nullable="false" />
+    <Property Name="id_libro" Type="Int32" Nullable="false" />
+    <Property Name="cantidad" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Libro" Relationship="Self.fk_PrestamoLibro_Libro" FromRole="PrestamoLibro" ToRole="Libro" />
+    <NavigationProperty Name="Prestamo" Relationship="Self.fk_PrestamoLibro_Prestamo" FromRole="PrestamoLibro" ToRole="Prestamo" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Tipo_De_Prestamo">
+    <Key>
+      <PropertyRef Name="id_tipo_prestamo" />
+    </Key>
+    <Property Name="id_tipo_prestamo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tipo_prestamo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Prestamoes" Relationship="Self.fk_tipo_prestamo" FromRole="Tipo_De_Prestamo" ToRole="Prestamo" />
+    <Property Name="activo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Venta">
+    <Key>
+      <PropertyRef Name="id_venta" />
+    </Key>
+    <Property Name="id_venta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fecha_venta" Type="DateTime" Precision="0" />
+    <Property Name="id_personal" Type="Int32" Nullable="false" />
+    <Property Name="id_cliente" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cliente" Relationship="Self.fk_cliente_venta" FromRole="Venta" ToRole="Cliente" />
+    <NavigationProperty Name="Personal" Relationship="Self.fk_personal_venta" FromRole="Venta" ToRole="Personal" />
+    <NavigationProperty Name="VentaLibroes" Relationship="Self.fk_VentaLibro_Venta" FromRole="Venta" ToRole="VentaLibro" />
+  </EntityType>
+  <EntityType Name="VentaLibro">
+    <Key>
+      <PropertyRef Name="id_venta" />
+      <PropertyRef Name="id_libro" />
+    </Key>
+    <Property Name="id_venta" Type="Int32" Nullable="false" />
+    <Property Name="id_libro" Type="Int32" Nullable="false" />
+    <Property Name="cantidad" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Libro" Relationship="Self.fk_VentaLibro_Libro" FromRole="VentaLibro" ToRole="Libro" />
+    <NavigationProperty Name="Venta" Relationship="Self.fk_VentaLibro_Venta" FromRole="VentaLibro" ToRole="Venta" />
+  </EntityType>
+  <Association Name="fk_id_categoria_libro">
+    <End Role="Categoria_libro" Type="Self.Categoria_libro" Multiplicity="1" />
+    <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria_libro">
+        <PropertyRef Name="id_categoria_libro" />
+      </Principal>
+      <Dependent Role="Libro">
+        <PropertyRef Name="id_categoria_libro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_personal">
+    <End Role="Personal" Type="Self.Personal" Multiplicity="1" />
+    <End Role="Checada" Type="Self.Checada" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personal">
+        <PropertyRef Name="id_personal" />
+      </Principal>
+      <Dependent Role="Checada">
+        <PropertyRef Name="id_personal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_cliente_prestamo">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id_cliente" />
+      </Principal>
+      <Dependent Role="Prestamo">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_cliente_venta">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id_cliente" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PrestamoLibro_Libro">
+    <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+    <End Role="PrestamoLibro" Type="Self.PrestamoLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Libro">
+        <PropertyRef Name="id_libro" />
+      </Principal>
+      <Dependent Role="PrestamoLibro">
+        <PropertyRef Name="id_libro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_VentaLibro_Libro">
+    <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+    <End Role="VentaLibro" Type="Self.VentaLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Libro">
+        <PropertyRef Name="id_libro" />
+      </Principal>
+      <Dependent Role="VentaLibro">
+        <PropertyRef Name="id_libro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_personal_prestamo">
+    <End Role="Personal" Type="Self.Personal" Multiplicity="1" />
+    <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personal">
+        <PropertyRef Name="id_personal" />
+      </Principal>
+      <Dependent Role="Prestamo">
+        <PropertyRef Name="id_personal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_personal_venta">
+    <End Role="Personal" Type="Self.Personal" Multiplicity="1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personal">
+        <PropertyRef Name="id_personal" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="id_personal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PrestamoLibro_Prestamo">
+    <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="1" />
+    <End Role="PrestamoLibro" Type="Self.PrestamoLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prestamo">
+        <PropertyRef Name="id_prestamo" />
+      </Principal>
+      <Dependent Role="PrestamoLibro">
+        <PropertyRef Name="id_prestamo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tipo_prestamo">
+    <End Role="Tipo_De_Prestamo" Type="Self.Tipo_De_Prestamo" Multiplicity="0..1" />
+    <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo_De_Prestamo">
+        <PropertyRef Name="id_tipo_prestamo" />
+      </Principal>
+      <Dependent Role="Prestamo">
+        <PropertyRef Name="id_tipo_prestamo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_VentaLibro_Venta">
+    <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
+    <End Role="VentaLibro" Type="Self.VentaLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venta">
+        <PropertyRef Name="id_venta" />
+      </Principal>
+      <Dependent Role="VentaLibro">
+        <PropertyRef Name="id_venta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BibliotecaContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categoria_libro" EntityType="Self.Categoria_libro" />
+    <EntitySet Name="Checadas" EntityType="Self.Checada" />
+    <EntitySet Name="Clientes" EntityType="Self.Cliente" />
+    <EntitySet Name="Libroes" EntityType="Self.Libro" />
+    <EntitySet Name="Personals" EntityType="Self.Personal" />
+    <EntitySet Name="Prestamoes" EntityType="Self.Prestamo" />
+    <EntitySet Name="PrestamoLibroes" EntityType="Self.PrestamoLibro" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Tipo_De_Prestamo" EntityType="Self.Tipo_De_Prestamo" />
+    <EntitySet Name="Ventas" EntityType="Self.Venta" />
+    <EntitySet Name="VentaLibroes" EntityType="Self.VentaLibro" />
+    <AssociationSet Name="fk_id_categoria_libro" Association="Self.fk_id_categoria_libro">
+      <End Role="Categoria_libro" EntitySet="Categoria_libro" />
+      <End Role="Libro" EntitySet="Libroes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_personal" Association="Self.fk_personal">
+      <End Role="Personal" EntitySet="Personals" />
+      <End Role="Checada" EntitySet="Checadas" />
+    </AssociationSet>
+    <AssociationSet Name="fk_cliente_prestamo" Association="Self.fk_cliente_prestamo">
+      <End Role="Cliente" EntitySet="Clientes" />
+      <End Role="Prestamo" EntitySet="Prestamoes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_cliente_venta" Association="Self.fk_cliente_venta">
+      <End Role="Cliente" EntitySet="Clientes" />
+      <End Role="Venta" EntitySet="Ventas" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PrestamoLibro_Libro" Association="Self.fk_PrestamoLibro_Libro">
+      <End Role="Libro" EntitySet="Libroes" />
+      <End Role="PrestamoLibro" EntitySet="PrestamoLibroes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_VentaLibro_Libro" Association="Self.fk_VentaLibro_Libro">
+      <End Role="Libro" EntitySet="Libroes" />
+      <End Role="VentaLibro" EntitySet="VentaLibroes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_personal_prestamo" Association="Self.fk_personal_prestamo">
+      <End Role="Personal" EntitySet="Personals" />
+      <End Role="Prestamo" EntitySet="Prestamoes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_personal_venta" Association="Self.fk_personal_venta">
+      <End Role="Personal" EntitySet="Personals" />
+      <End Role="Venta" EntitySet="Ventas" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PrestamoLibro_Prestamo" Association="Self.fk_PrestamoLibro_Prestamo">
+      <End Role="Prestamo" EntitySet="Prestamoes" />
+      <End Role="PrestamoLibro" EntitySet="PrestamoLibroes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tipo_prestamo" Association="Self.fk_tipo_prestamo">
+      <End Role="Tipo_De_Prestamo" EntitySet="Tipo_De_Prestamo" />
+      <End Role="Prestamo" EntitySet="Prestamoes" />
+    </AssociationSet>
+    <AssociationSet Name="fk_VentaLibro_Venta" Association="Self.fk_VentaLibro_Venta">
+      <End Role="Venta" EntitySet="Ventas" />
+      <End Role="VentaLibro" EntitySet="VentaLibroes" />
+    </AssociationSet>
+    <EntitySet Name="Admins" EntityType="BibliotecaModel.Admin" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(BibliotecaModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(BibliotecaModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="id_admin" />
+    </Key>
+    <Property Name="id_admin" Type="Int32" Nullable="false" />
+    <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pword" Type="String" Nullable="false" />
+    <Property Name="activo" Type="Boolean" />
+  </EntityType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

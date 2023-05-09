@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "Formulario Libros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.Libro != null)
+{
+    <h2>Modificar Libro</h2>
+}
+else
+{
+    <h2>Insertar Libro</h2>
+}
+<head>
+    <style>
+        input[type="text"], select {
+            color: #fff;
+        }
+    </style>
+
+</head>
+<script>
+    var UrlGuardarLibro = '@Url.Action("guardarLibro", "Home")';
+</script>
+<script src="~/Scripts/js_Libro.js"></script>
+<div class="row">
+    <div class="input-field col s12 m6 l2">
+        <select id="id_categoria_libro">
+            <option value="" selcted disabled>Elige una Categoria</option>
+            @foreach (var categoria in ViewBag.categorias)
+            {
+                <option value="@categoria.id_categoria_libro">@categoria.nombre</option>
+            }
+
+        </select>
+        <label>Categoría</label>
+
+    </div>
+
+
+    <div class="col s12 m6 l2">
+        <label>Titulo</label>
+        @if (ViewBag.Libro != null)
+        {
+            <input type="text" id="titulo" name="titulo" class="form-control" value="@ViewBag.Libro.titulo" />
+        }
+        else
+        {
+            <input type="text" id="titulo" name="titulo" class="form-control" />
+        }
+    </div>
+
+    <div class="col s12 m6 l2">
+        <label>Autor del Libro</label>
+        @if (ViewBag.Libro != null)
+        {
+            <input type="text" id="autor" name="autor" class="form-control" value="@ViewBag.Libro.autor" />
+        }
+        else
+        {
+            <input type="text" id="autor" name="autor" class="form-control" />
+        }
+    </div>
+
+    <div class="col s12 m6 l2">
+        <label>Editorial</label>
+        @if (ViewBag.Libro != null)
+        {
+            <input type="text" id="editorial" name="editorial" class="form-control" value="@ViewBag.Libro.editorial" />
+
+        }
+        else
+        {
+            <input type="text" id="editorial" name="editorial" class="form-control" />
+
+        }
+    </div>
+    <div class="col s12 m6 l2">
+        <label>Número de Copias Disponibles</label>
+        @if (ViewBag.Libro != null)
+        {
+            <input type="text" id="numero_copias" name="numero_copias" class="form-control" value="@ViewBag.Libro.numero_copias" />
+
+        }
+        else
+        {
+            <input type="text" id="numero_copias" name="numero_copias" class="form-control" />
+
+        }
+    </div>
+    <div class="col s12 m6 l2">
+        <label>Precio</label>
+        @if (ViewBag.Libro != null)
+        {
+            <input type="text" id="precio" name="precio" class="form-control" value="@ViewBag.Libro.precio" />
+
+        }
+        else
+        {
+            <input type="text" id="precio" name="precio" class="form-control" />
+
+        }
+    </div>
+</div>
+<br />
+@if (ViewBag.Libro != null)
+{
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarLibro()" class="btn btn-success amber accent-3">Guardar Cambios</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarLibro()" class="btn btn-success amber accent-3">Agregar Libro</a>
+        </div>
+    </div>
+}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var sel = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(sel);
+    });
+</script>

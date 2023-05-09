@@ -1,0 +1,241 @@
+﻿@{
+    ViewBag.Title = "Página Principal";
+}
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+@{bool logged = false; }
+
+@foreach (var admin in ViewBag.Admins)
+{
+    if (admin.activo == true)
+    {
+        logged = true;
+        break;
+    }
+    else
+    {
+        break;
+    }
+}
+@if (logged)
+{
+    <h1>Biblioteca Admin</h1>
+    <head>
+        <script>
+            var UrlAdminLogout = '@Url.Action("AdminLogout", "Home")';
+        </script>
+        <script src="~/Scripts/JS_Logout.js"></script>
+    </head>
+    <style>
+        .half-height {
+            height: 50%;
+        }
+
+        .icon-wrapper {
+            position: relative;
+        }
+
+        .big-icon {
+            font-size: 48px;
+        }
+
+        .small-icon {
+            font-size: 24px;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+    
+    <body>
+        <div id="cards" class="row">
+            <div class="card" id="Card1">
+                <div class="card-content">
+                    <div class="card-image">
+                        <i class="material-icons">library_books</i>
+                    </div>
+                    <div class="card-info-wrapper">
+                        <div class="card-info">
+                            <i class="material-icons">library_books</i>
+                            <div class="card-info-title">
+                                <h3>Catálogo Actual de Libros</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="Card2">
+                <div class="card-content">
+                    <div class="card-image">
+                        <i class="material-icons">playlist_add</i>
+                    </div>
+                    <div class="card-info-wrapper">
+                        <div class="card-info">
+                            <i class="material-icons">playlist_add  </i>
+                            <div class="card-info-title">
+                                <h3>Categorias de los Libros</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="Card3">
+                <div class="card-content">
+                    <div class="card-image">
+                        <i class="material-icons">account_circle</i>
+                    </div>
+                    <div class="card-info-wrapper">
+                        <div class="card-info">
+                            <i class="material-icons">account_circle  </i>
+                            <div class="card-info-title">
+                                <h3>Listado de Clientes Actuales</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="Card4">
+                <div class="card-content">
+                    <div class="card-image">
+                        <i class="material-icons">face</i>
+                    </div>
+                    <div class="card-info-wrapper">
+                        <div class="card-info">
+                            <i class="material-icons">face </i>
+                            <div class="card-info-title">
+                                <h3>Gestión de  Empleados</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="Card5">
+                <div class="card-content">
+                    <div class="card-image">
+                        <i class="material-icons">contacts</i>
+                    </div>
+                    <div class="card-info-wrapper">
+                        <div class="card-info">
+                            <i class="material-icons">contacts</i>
+                            <div class="card-info-title">
+                                <h3>Chequeo de Empleados</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="Card6">
+                <div class="card-content">
+                    <div class="card-image">
+                        <i class="material-icons">apps</i>
+                    </div>
+                    <div class="card-info-wrapper">
+                        <div class="card-info">
+                            <i class="material-icons">apps</i>
+                            <div class="card-info-title">
+                                <h3>Configurar Tipos de Préstamos</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <a href="javascript:AdminLogout()" class="btn btn-success amber accent-3">Cierre de Sesión</a>
+        </div>
+        <a href="@Url.Action("ListaLibros", "Home")" id="LibrosLink" style="display: none;"></a>
+        <a href="@Url.Action("ListaCategorias", "Home")" id="CategoriasLink" style="display: none;"></a>
+        <a href="@Url.Action("ListaClientes", "Home")" id="ClientesLink" style="display: none;"></a>
+        <a href="@Url.Action("ListaPersonal", "Home")" id="PersonalLink" style="display: none;"></a>
+        <a href="@Url.Action("ListaChecadas", "Home")" id="ChecadasLink" style="display: none;"></a>
+        <a href="@Url.Action("ListaTipoPrestamo", "Home")" id="TipoPrestamoLink" style="display: none;"></a>
+
+        <script>
+            document.getElementById("cards").onmousemove = e => {
+                for (const card of document.getElementsByClassName("card")) {
+                    const rect = card.getBoundingClientRect(),
+                        x = e.clientX - rect.left,
+                        y = e.clientY - rect.top;
+
+                    card.style.setProperty("--mouse-x", `${x}px`);
+                    card.style.setProperty("--mouse-y", `${y}px`);
+                };
+            }
+        </script>
+        <script>
+            const LinkBooks = document.getElementById("LibrosLink");
+            const LinkCats = document.getElementById("CategoriasLink");
+            const LinkClients = document.getElementById("ClientesLink");
+            const LinkPersonal = document.getElementById("PersonalLink");
+            const LinkChecks = document.getElementById("ChecadasLink");
+            const LinkTipoPrestamo = document.getElementById("TipoPrestamoLink");
+            const CardBooks = document.getElementById("Card1");
+            const CardCats = document.getElementById("Card2");
+            const CardClients = document.getElementById("Card3");
+            const CardPersonal = document.getElementById("Card4");
+            const CardChecks = document.getElementById("Card5");
+            const CardTipoPrestamo = document.getElementById("Card6");
+
+            CardBooks.addEventListener("click", function () {
+                window.location.href = LinkBooks.href;
+            });
+            CardCats.addEventListener("click", function () {
+                window.location.href = LinkCats.href;
+            });
+            CardClients.addEventListener("click", function () {
+                window.location.href = LinkClients.href;
+            });
+            CardPersonal.addEventListener("click", function () {
+                window.location.href = LinkPersonal.href;
+            });
+            CardChecks.addEventListener("click", function () {
+                window.location.href = LinkChecks.href;
+            });
+            CardTipoPrestamo.addEventListener("click", function () {
+                window.location.href = LinkTipoPrestamo.href;
+            });
+        </script>
+
+
+    </body>
+}
+else
+{
+    <head>
+        <style>
+            input[type="text"], select {
+                color: #fff;
+            }
+
+            input[type="password"], select {
+                color: #fff;
+            }
+        </style>
+
+        <script>
+            var UrlAdminLogin = '@Url.Action("AdminLogin", "Home")';
+        </script>
+        <script src="~/Scripts/JS_Login.js"></script>
+    </head>
+    <h1>Admin Login</h1>
+    <div class="col">
+        <div class="row">
+            <label>Usuario (email o username)</label>
+            <input type="text" id="email" name="user" class="form-control" />
+        </div>
+        <div class="row">
+            <label>Contraseña</label>
+            <input type="password" id="pword" name="pword" class="form-control" />
+        </div>
+        <div class="row">
+            <a href="javascript:AdminLogin()" class="btn btn-success amber accent-3">Acceder</a>
+        </div>
+    </div>
+}
+

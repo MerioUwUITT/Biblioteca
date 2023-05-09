@@ -1,0 +1,184 @@
+﻿@{
+    ViewBag.Title = "formularioVenta";
+}
+
+<h2>Realizar Ventas</h2>
+<head>
+    <style>
+        input[type="text"], select {
+            color: #fff;
+        }
+
+        .dropdown-content li > a:hover, .dropdown-content li > span:hover {
+            color: #fff;
+            background-color: #ffc400;
+        }
+
+        .dropdown-content li > a {
+            color: #fff;
+        }
+
+        .dropdown-content li > span {
+            background-color: #1a1a1a;
+            color: #fff;
+            border-bottom: 1px solid rgba(255,255,255,0.25);
+        }
+
+        .dropdown-content li > a.active {
+            background-color: #1a1a1a;
+        }
+
+        td div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+            td div button {
+                width: 30%;
+            }
+
+            td div label {
+                width: 40%;
+                text-align: center;
+                font-size: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+        .select-wrapper input.select-dropdown:focus {
+            border-bottom-color: #ffc400 !important;
+        }
+    </style>
+</head>
+
+<div class="row">
+    <div class="col s12 m6 l3"></div>
+    <div class="col s12 m6 l3">
+        <label>Vendedor: </label>
+        <select id="id_personal" name="id_personal" class="form-control">
+            @foreach (var item in ViewBag.Personal)
+            {
+                <option value="@item.id_personal">@item.nombre @item.apellido</option>
+            }
+        </select>
+    </div>
+    <div class="col s12 m6 l3">
+        <label>Cliente: </label>
+        <select id="id_cliente" name="id_cliente" class="form-control">
+            @foreach (var item in ViewBag.Clientes)
+            {
+                if (item.Activo == true)
+                {
+                    <option value="@item.id_cliente">@item.nombre @item.apellido</option>
+                }
+            }
+        </select>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col s12 m10 l10">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @{ int i = 0;}
+                    @foreach (var item in ViewBag.Libros)
+                    {
+                        if (item.Activo == true)
+                        {
+
+
+                            var maxCantidad = item.numero_copias;
+                            <tr>
+                                <td id="id_@i" value="@item.id_libro">@item.titulo</td>
+                                <td>@item.precio</td>
+                                <td>
+                                    <div>
+                                        <button class="btn amber accent-3 black-text" id="menos_@i" name="menos_@i" onclick="menos(@i)">-</button>
+                                        <label id="cantidad_@i" name="cantidad_@i" max="@maxCantidad" class="center-align white-text" data-cantidad="0">0</label>
+                                        <button class="btn amber accent-3 black-text" id="mas_@i" name="mas_@i" onclick="mas(@i)">+</button>
+                                    </div>
+                                </td>
+
+                            </tr>
+                            i++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col s12 m10 l2">
+            <div style="text-align: center;">
+                <div>Total de la venta:</div>
+                <div>
+                    <span style="font-size: larger;">$</span>
+                    <span id="total" style="font-size: larger;">0</span>
+                    <span style="font-size: larger;"> dolares</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tamanio" data-i="@i"></div>
+<div class="row">
+    <div class="col-md-2">
+        <a href="javascript:hacerVenta()" class="btn btn-success amber accent-3">Realizar Venta</a>
+    </div>
+</div>
+
+<script>
+    var UrlHacerVenta = '@Url.Action("hacerVenta", "Home")';
+</script>
+<script src="~/Scripts/js_venta.js"></script>
+<script>
+    function mas(i) {
+        var cantidad = document.getElementById("cantidad_" + i);
+        var maxCantidad = parseInt(cantidad.getAttribute("max"));
+        var actualCantidad = parseInt(cantidad.getAttribute("data-cantidad"));
+        if (actualCantidad < maxCantidad) {
+            actualCantidad++;
+            cantidad.setAttribute("data-cantidad", actualCantidad);
+            cantidad.innerHTML = actualCantidad;
+            calcularTotal();
+        }
+    }
+
+    function menos(i) {
+        var cantidad = document.getElementById("cantidad_" + i);
+        var actualCantidad = parseInt(cantidad.getAttribute("data-cantidad"));
+        if (actualCantidad > 0) {
+            actualCantidad--;
+            cantidad.setAttribute("data-cantidad", actualCantidad);
+            cantidad.innerHTML = actualCantidad;
+            calcularTotal();
+        }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var sel = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(sel);
+    });
+
+    function calcularTotal() {
+        var total = 0;
+        var libros = document.querySelectorAll('tbody tr');
+        libros.forEach(function (libro) {
+            var precio = parseFloat(libro.querySelector('td:nth-child(2)').innerText);
+            var cantidad = parseInt(libro.querySelector('label').getAttribute("data-cantidad"));
+            total += precio * cantidad;
+        });
+        document.getElementById("total").innerText = total.toFixed(2);
+    }
+
+</script>

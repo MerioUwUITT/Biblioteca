@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Lista de Clientes";
+}
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .delete-column {
+            padding-right: 20px;
+        }
+
+        .add-book-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #FFc400;
+            margin-left: auto;
+        }
+
+        i.blackross {
+            color: black;
+        }
+
+        .add-book-button i {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<h2>Listado de la Clientela</h2>
+
+<a href="~/Home/formularioClientes" type="button" class="waves-effect waves-light btn amber accent-3"><i class="material-icons right">add_circle_outline</i>Registrar Cliente</a>
+
+<table class="responsive-table">
+    <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Dirección</th>
+        <th>No. Telefónico</th>
+        <th>Correo Electrónico</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        if (item.Activo == true)
+        {
+            <tr>
+                <td> @item.nombre</td>
+                <td> @item.apellido</td>
+                <td> @item.direccion </td>
+                <td> @item.telefono </td>
+                <td>@item.email</td>
+                <td style="text-align:center;">
+                    <a class="waves-effect waves-light btn amber accent-3" href="~/Home/formularioClientes?IDCliente=@item.id_cliente" style="font-size:24px; display:block; margin-right:15px;"><i class="material-icons">border_color</i></a>
+                </td>
+                <td style="text-align:center;" class="delete-column">
+                    <a class="waves-effect waves-light btn" href="~/Home/eliminarCliente?IDCliente=@item.id_cliente" style="font-size: 24px; display: block; margin-right: 40px; color: white; background-color: rgb(255, 82, 82);"><i class="material-icons">delete</i></a>
+                </td>
+            </tr>
+        }
+    }
+</table>

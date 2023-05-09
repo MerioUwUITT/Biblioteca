@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Categorias de libros";
+}
+
+<h2>Listado de Categorias</h2>
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .delete-column {
+            padding-right: 20px;
+        }
+        th:nth-child(1), td:nth-child(1) {
+            width: 20%;
+        }
+
+        th:nth-child(2), td:nth-child(2) {
+            width: 60%;
+        }
+
+        th:nth-child(3), td:nth-child(3), th:nth-child(4), td:nth-child(4) {
+            width: 10%;
+        }
+    </style>
+</head>
+<a href="~/Home/formularioCategorias" type="button" class="waves-effect waves-light btn amber accent-3"><i class="material-icons right">add_circle_outline</i>Añadir Categoria</a>
+
+<table class="responsive-table">
+
+    <tr>
+        <th>Nombre de la Categoría</th>
+        <th>Descripción</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td> @item.nombre </td>
+            <td> @item.descripcion</td>
+            <td style="text-align:center;">
+                <a class="waves-effect waves-light btn amber accent-3" href="~/Home/formularioCategorias?IDCategoria=@item.id_categoria_libro" style="font-size:24px; display:block; margin-right:15px;"><i class="material-icons">border_color</i></a>
+            </td>
+            <td style="text-align:center;" class="delete-column">
+                <a class="waves-effect waves-light btn" href="~/Home/EliminarCategoria?IDCategoria=@item.id_categoria_libro" style="font-size: 24px; display: block; margin-right: 40px; color: white; background-color: rgb(255, 82, 82);"><i class="material-icons">delete</i></a>
+            </td>
+        </tr>
+    }
+
+
+</table>
+

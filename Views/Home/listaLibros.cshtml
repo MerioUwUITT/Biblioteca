@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Catálogo de Libros";
+}
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .delete-column {
+            padding-right: 20px;
+        }
+
+        .add-book-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #FFc400;
+            margin-left: auto;
+        }
+
+        i.blackross {
+            color: black;
+        }
+
+        .add-book-button i {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<h2>Catálogo de Libros</h2>
+
+<a href="~/Home/formularioLibros" type="button" class="waves-effect waves-light btn amber accent-3"><i class="material-icons right">add_circle_outline</i>Añadir Libro</a>
+
+
+<table class="responsive-table">
+    <tr>
+        <th>Categoría</th>
+        <th>Título</th>
+        <th>Autor</th>
+        <th>Editorial</th>
+        <th>Cantidad de Copias</th>
+        <th>Precio</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        if (item.Activo == true)
+        {
+            <tr>
+                <td> @item.Categoria_libro.nombre </td>
+                <td> @item.titulo</td>
+                <td> @item.autor </td>
+                <td> @item.editorial </td>
+                <td>@item.numero_copias</td>
+                <td>@item.precio</td>
+                <td style="text-align:center;">
+                    <a class="waves-effect waves-light btn amber accent-3" href="~/Home/formularioLibros?IDLibro=@item.id_libro" style="font-size:24px; display:block; margin-right:15px;"><i class="material-icons">border_color</i></a>
+                </td>
+                <td style="text-align:center;" class="delete-column">
+                    <a class="waves-effect waves-light btn" href="~/Home/EliminarLibro?idLibro=@item.id_libro" style="font-size: 24px; display: block; margin-right: 40px; color: white; background-color: rgb(255, 82, 82);"><i class="material-icons">delete</i></a>
+                </td>
+            </tr>
+        }
+    }
+</table>
+

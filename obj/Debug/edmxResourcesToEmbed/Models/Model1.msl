@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BibliotecaModelStoreContainer" CdmEntityContainer="BibliotecaContext">
+    <EntitySetMapping Name="Categoria_libro">
+      <EntityTypeMapping TypeName="BibliotecaModel.Categoria_libro">
+        <MappingFragment StoreEntitySet="Categoria_libro">
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="id_categoria_libro" ColumnName="id_categoria_libro" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Checadas">
+      <EntityTypeMapping TypeName="BibliotecaModel.Checada">
+        <MappingFragment StoreEntitySet="Checada">
+          <ScalarProperty Name="Pagado" ColumnName="Pagado" />
+          <ScalarProperty Name="id_checada" ColumnName="id_checada" />
+          <ScalarProperty Name="id_personal" ColumnName="id_personal" />
+          <ScalarProperty Name="fecha" ColumnName="fecha" />
+          <ScalarProperty Name="hora_entrada" ColumnName="hora_entrada" />
+          <ScalarProperty Name="hora_salida" ColumnName="hora_salida" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="BibliotecaModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="direccion" ColumnName="direccion" />
+          <ScalarProperty Name="telefono" ColumnName="telefono" />
+          <ScalarProperty Name="email" ColumnName="email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Libroes">
+      <EntityTypeMapping TypeName="BibliotecaModel.Libro">
+        <MappingFragment StoreEntitySet="Libro">
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="id_libro" ColumnName="id_libro" />
+          <ScalarProperty Name="id_categoria_libro" ColumnName="id_categoria_libro" />
+          <ScalarProperty Name="titulo" ColumnName="titulo" />
+          <ScalarProperty Name="autor" ColumnName="autor" />
+          <ScalarProperty Name="editorial" ColumnName="editorial" />
+          <ScalarProperty Name="numero_copias" ColumnName="numero_copias" />
+          <ScalarProperty Name="precio" ColumnName="precio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Personals">
+      <EntityTypeMapping TypeName="BibliotecaModel.Personal">
+        <MappingFragment StoreEntitySet="Personal">
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+          <ScalarProperty Name="id_personal" ColumnName="id_personal" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="apellido" ColumnName="apellido" />
+          <ScalarProperty Name="puesto" ColumnName="puesto" />
+          <ScalarProperty Name="sueldo" ColumnName="sueldo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prestamoes">
+      <EntityTypeMapping TypeName="BibliotecaModel.Prestamo">
+        <MappingFragment StoreEntitySet="Prestamo">
+          <ScalarProperty Name="id_prestamo" ColumnName="id_prestamo" />
+          <ScalarProperty Name="id_tipo_prestamo" ColumnName="id_tipo_prestamo" />
+          <ScalarProperty Name="fecha_prestamo" ColumnName="fecha_prestamo" />
+          <ScalarProperty Name="fecha_devolucion" ColumnName="fecha_devolucion" />
+          <ScalarProperty Name="id_personal" ColumnName="id_personal" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PrestamoLibroes">
+      <EntityTypeMapping TypeName="BibliotecaModel.PrestamoLibro">
+        <MappingFragment StoreEntitySet="PrestamoLibro">
+          <ScalarProperty Name="id_prestamo" ColumnName="id_prestamo" />
+          <ScalarProperty Name="id_libro" ColumnName="id_libro" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="BibliotecaModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tipo_De_Prestamo">
+      <EntityTypeMapping TypeName="BibliotecaModel.Tipo_De_Prestamo">
+        <MappingFragment StoreEntitySet="Tipo_De_Prestamo">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="id_tipo_prestamo" ColumnName="id_tipo_prestamo" />
+          <ScalarProperty Name="tipo_prestamo" ColumnName="tipo_prestamo" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ventas">
+      <EntityTypeMapping TypeName="BibliotecaModel.Venta">
+        <MappingFragment StoreEntitySet="Venta">
+          <ScalarProperty Name="id_venta" ColumnName="id_venta" />
+          <ScalarProperty Name="fecha_venta" ColumnName="fecha_venta" />
+          <ScalarProperty Name="id_personal" ColumnName="id_personal" />
+          <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VentaLibroes">
+      <EntityTypeMapping TypeName="BibliotecaModel.VentaLibro">
+        <MappingFragment StoreEntitySet="VentaLibro">
+          <ScalarProperty Name="id_venta" ColumnName="id_venta" />
+          <ScalarProperty Name="id_libro" ColumnName="id_libro" />
+          <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="BibliotecaModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="activo" ColumnName="activo" />
+          <ScalarProperty Name="pword" ColumnName="pword" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="id_admin" ColumnName="id_admin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="BibliotecaModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="BibliotecaModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="BibliotecaModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="BibliotecaModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BibliotecaModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="BibliotecaModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BibliotecaModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="BibliotecaModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="BibliotecaModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>

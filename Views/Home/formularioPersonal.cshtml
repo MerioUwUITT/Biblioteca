@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Gestion Personal";
+}
+
+@if (ViewBag.Personal != null)
+{
+    <h2>Editar Datos del Empleado</h2>
+}
+else
+{
+    <h2>Registrar Empleado Nuevo</h2>
+}
+
+<head>
+    <style>
+        input[type="text"], select {
+            color: #fff;
+        }
+    </style>
+
+</head>
+<script>
+    var UrlGuardarPersonal = '@Url.Action("guardarPersonal","Home")';
+</script>
+<script src="~/Scripts/JS_Personal.js"></script>
+<div class="row">
+    <div class="col s12 m6l12">
+        <label>Nombre</label>
+        @if (ViewBag.Personal != null)
+        {
+            <input type="text" id="nombre" name="nombre" class="form-control" value="@ViewBag.Personal.nombre" />
+        }
+        else
+        {
+
+            <input type="text" id="nombre" name="nombre" class="form-control" />
+        }
+    </div><div class="col s12 m6l12">
+        <label>Apellido</label>
+        @if (ViewBag.Personal != null)
+        {
+            <input type="text" id="apellido" name="apellido" class="form-control" value="@ViewBag.Personal.apellido" />
+        }
+        else
+        {
+
+            <input type="text" id="apellido" name="apellido" class="form-control" />
+        }
+    </div><div class="col s12 m6l12">
+        <label>Puesto</label>
+        @if (ViewBag.Personal != null)
+        {
+            <input type="text" id="puesto" name="puesto" class="form-control" value="@ViewBag.Personal.puesto" />
+        }
+        else
+        {
+
+            <input type="text" id="puesto" name="puesto" class="form-control" />
+        }
+    </div><div class="col s12 m6l12">
+        <label>Sueldo</label>
+        @if (ViewBag.Personal != null)
+        {
+            <input type="text" id="sueldo" name="sueldo" class="form-control" value="@ViewBag.Personal.sueldo" />
+        }
+        else
+        {
+
+            <input type="text" id="sueldo" name="sueldo" class="form-control" />
+        }
+    </div>
+</div>
+@if (ViewBag.Personal != null)
+{
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarPersonal()" class="btn btn-success amber accent-3">Guardar Cambios</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarPersonal()" class="btn btn-success amber accent-3">Registrar Empleado</a>
+        </div>
+    </div>
+}

@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "Formulario de Clientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@if (ViewBag.Cliente != null)
+{
+                <h2>Editar Información del Cliente</h2>
+            }
+else
+            {
+                <h2>Registrar Cliente Nuevo</h2>
+            }
+<head>
+    <style>
+        input[type="text"], select {
+            color: #fff;
+        }
+    </style>
+
+</head>
+<script>
+    var UrlGuardarCliente = '@Url.Action("guardarCliente","Home")';
+</script>
+<script src="~/Scripts/JS_Cliente.js"></script>
+<div class="row">
+    <div class=" col s12 m6 l2">
+        <label>Nombre</label>
+        @if (ViewBag.Cliente != null)
+        {
+            <input type="text" id="nombre" name="nombre" class="form-control" value="@ViewBag.Cliente.nombre" />
+        }
+        else
+        {
+            <input type="text" id="nombre" name="nombre" class="form-control" />
+        }
+    </div>
+    <div class=" col s12 m6 l2">
+        <label>Apellido</label>
+        @if (ViewBag.Cliente != null)
+        {
+            <input type="text" id="apellido" name="apellido" class="form-control" value="@ViewBag.Cliente.apellido" />
+        }
+        else
+        {
+            <input type="text" id="apellido" name="apellido" class="form-control" />
+        }
+    </div>
+    <div class=" col s12 m6 l2">
+        <label>Direccion</label>
+        @if (ViewBag.Cliente != null)
+        {
+            <input type="text" id="direccion" name="direccion" class="form-control" value="@ViewBag.Cliente.direccion" />
+        }
+        else
+        {
+            <input type="text" id="direccion" name="direccion" class="form-control" />
+        }
+    </div>
+    <div class=" col s12 m6 l2">
+        <label>Número Telefónico</label>
+        @if (ViewBag.Cliente != null)
+        {
+            <input type="text" id="telefono" name="telefono" class="form-control" value="@ViewBag.Cliente.telefono" />
+        }
+        else
+        {
+            <input type="text" id="telefono" name="telefono" class="form-control" />
+        }
+    </div>
+    <div class=" col s12 m6 l2">
+        <label>Correo Electrónico</label>
+        @if (ViewBag.Cliente != null)
+        {
+            <input type="text" id="email" name="email" class="form-control" value="@ViewBag.Cliente.email" />
+        }
+        else
+        {
+            <input type="text" id="email" name="email" class="form-control" />
+        }
+    </div>
+</div>
+<br/>
+@if(ViewBag.Cliente != null)
+            {
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarCliente()" class="btn btn-success amber accent-3">Guardar Cambios</a>
+        </div>
+    </div>
+            }
+else
+            {
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarCliente()" class="btn btn-success amber accent-3">Registrar Cliente</a>
+        </div>
+    </div>
+            }

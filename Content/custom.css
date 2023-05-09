@@ -1,0 +1,39 @@
+﻿
+.sidenav-trigger {
+    color: #fff;
+}
+
+.sidenav-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.sidenav {
+    background-color: #111;
+    color: #fff;
+    padding-top: 20px;
+    width: 240px;
+}
+
+    .sidenav li a {
+        color: #fff;
+    }
+
+    .sidenav .collapsible-header {
+        color: #fff;
+    }
+
+@media only screen and (max-width: 992px) {
+    .sidenav {
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .sidenav {
+        width: 100%;
+    }
+}
+
+.hide-on-med-and-down {
+    display: none;
+}

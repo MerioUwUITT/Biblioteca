@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BibliotecaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="id_admin" />
+    </Key>
+    <Property Name="id_admin" Type="int" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="pword" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="activo" Type="bit" />
+  </EntityType>
+  <EntityType Name="Categoria_libro">
+    <Key>
+      <PropertyRef Name="id_categoria_libro" />
+    </Key>
+    <Property Name="id_categoria_libro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="descripcion" Type="varchar" MaxLength="200" />
+    <Property Name="Activo" Type="bit" />
+  </EntityType>
+  <EntityType Name="Checada">
+    <Key>
+      <PropertyRef Name="id_checada" />
+    </Key>
+    <Property Name="id_checada" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_personal" Type="int" Nullable="false" />
+    <Property Name="fecha" Type="date" />
+    <Property Name="hora_entrada" Type="time" Precision="7" />
+    <Property Name="hora_salida" Type="time" Precision="7" />
+    <Property Name="Pagado" Type="bit" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="id_cliente" />
+    </Key>
+    <Property Name="id_cliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="apellido" Type="varchar" MaxLength="50" />
+    <Property Name="direccion" Type="varchar" MaxLength="50" />
+    <Property Name="telefono" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="Activo" Type="bit" />
+  </EntityType>
+  <EntityType Name="Libro">
+    <Key>
+      <PropertyRef Name="id_libro" />
+    </Key>
+    <Property Name="id_libro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_categoria_libro" Type="int" Nullable="false" />
+    <Property Name="titulo" Type="varchar" MaxLength="50" />
+    <Property Name="autor" Type="varchar" MaxLength="50" />
+    <Property Name="editorial" Type="varchar" MaxLength="50" />
+    <Property Name="numero_copias" Type="int" />
+    <Property Name="precio" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Activo" Type="bit" />
+  </EntityType>
+  <EntityType Name="Personal">
+    <Key>
+      <PropertyRef Name="id_personal" />
+    </Key>
+    <Property Name="id_personal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="50" />
+    <Property Name="apellido" Type="varchar" MaxLength="50" />
+    <Property Name="puesto" Type="varchar" MaxLength="50" />
+    <Property Name="sueldo" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="Activo" Type="bit" />
+  </EntityType>
+  <EntityType Name="Prestamo">
+    <Key>
+      <PropertyRef Name="id_prestamo" />
+    </Key>
+    <Property Name="id_prestamo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_tipo_prestamo" Type="int" />
+    <Property Name="fecha_prestamo" Type="date" />
+    <Property Name="fecha_devolucion" Type="date" />
+    <Property Name="id_personal" Type="int" Nullable="false" />
+    <Property Name="id_cliente" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PrestamoLibro">
+    <Key>
+      <PropertyRef Name="id_prestamo" />
+      <PropertyRef Name="id_libro" />
+    </Key>
+    <Property Name="id_prestamo" Type="int" Nullable="false" />
+    <Property Name="id_libro" Type="int" Nullable="false" />
+    <Property Name="cantidad" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Tipo_De_Prestamo">
+    <Key>
+      <PropertyRef Name="id_tipo_prestamo" />
+    </Key>
+    <Property Name="id_tipo_prestamo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tipo_prestamo" Type="varchar" MaxLength="50" />
+    <Property Name="descripcion" Type="varchar" MaxLength="200" />
+    <Property Name="activo" Type="bit" />
+  </EntityType>
+  <EntityType Name="Venta">
+    <Key>
+      <PropertyRef Name="id_venta" />
+    </Key>
+    <Property Name="id_venta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fecha_venta" Type="date" />
+    <Property Name="id_personal" Type="int" Nullable="false" />
+    <Property Name="id_cliente" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VentaLibro">
+    <Key>
+      <PropertyRef Name="id_venta" />
+      <PropertyRef Name="id_libro" />
+    </Key>
+    <Property Name="id_venta" Type="int" Nullable="false" />
+    <Property Name="id_libro" Type="int" Nullable="false" />
+    <Property Name="cantidad" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_cliente_prestamo">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id_cliente" />
+      </Principal>
+      <Dependent Role="Prestamo">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_cliente_venta">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="id_cliente" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="id_cliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_id_categoria_libro">
+    <End Role="Categoria_libro" Type="Self.Categoria_libro" Multiplicity="1" />
+    <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria_libro">
+        <PropertyRef Name="id_categoria_libro" />
+      </Principal>
+      <Dependent Role="Libro">
+        <PropertyRef Name="id_categoria_libro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_personal">
+    <End Role="Personal" Type="Self.Personal" Multiplicity="1" />
+    <End Role="Checada" Type="Self.Checada" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personal">
+        <PropertyRef Name="id_personal" />
+      </Principal>
+      <Dependent Role="Checada">
+        <PropertyRef Name="id_personal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_personal_prestamo">
+    <End Role="Personal" Type="Self.Personal" Multiplicity="1" />
+    <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personal">
+        <PropertyRef Name="id_personal" />
+      </Principal>
+      <Dependent Role="Prestamo">
+        <PropertyRef Name="id_personal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_personal_venta">
+    <End Role="Personal" Type="Self.Personal" Multiplicity="1" />
+    <End Role="Venta" Type="Self.Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personal">
+        <PropertyRef Name="id_personal" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="id_personal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PrestamoLibro_Libro">
+    <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+    <End Role="PrestamoLibro" Type="Self.PrestamoLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Libro">
+        <PropertyRef Name="id_libro" />
+      </Principal>
+      <Dependent Role="PrestamoLibro">
+        <PropertyRef Name="id_libro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_PrestamoLibro_Prestamo">
+    <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="1" />
+    <End Role="PrestamoLibro" Type="Self.PrestamoLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prestamo">
+        <PropertyRef Name="id_prestamo" />
+      </Principal>
+      <Dependent Role="PrestamoLibro">
+        <PropertyRef Name="id_prestamo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_tipo_prestamo">
+    <End Role="Tipo_De_Prestamo" Type="Self.Tipo_De_Prestamo" Multiplicity="0..1" />
+    <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tipo_De_Prestamo">
+        <PropertyRef Name="id_tipo_prestamo" />
+      </Principal>
+      <Dependent Role="Prestamo">
+        <PropertyRef Name="id_tipo_prestamo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_VentaLibro_Libro">
+    <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+    <End Role="VentaLibro" Type="Self.VentaLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Libro">
+        <PropertyRef Name="id_libro" />
+      </Principal>
+      <Dependent Role="VentaLibro">
+        <PropertyRef Name="id_libro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_VentaLibro_Venta">
+    <End Role="Venta" Type="Self.Venta" Multiplicity="1" />
+    <End Role="VentaLibro" Type="Self.VentaLibro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venta">
+        <PropertyRef Name="id_venta" />
+      </Principal>
+      <Dependent Role="VentaLibro">
+        <PropertyRef Name="id_venta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="BibliotecaModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categoria_libro" EntityType="Self.Categoria_libro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Checada" EntityType="Self.Checada" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Libro" EntityType="Self.Libro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Personal" EntityType="Self.Personal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prestamo" EntityType="Self.Prestamo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PrestamoLibro" EntityType="Self.PrestamoLibro" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tipo_De_Prestamo" EntityType="Self.Tipo_De_Prestamo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Venta" EntityType="Self.Venta" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VentaLibro" EntityType="Self.VentaLibro" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_cliente_prestamo" Association="Self.fk_cliente_prestamo">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Prestamo" EntitySet="Prestamo" />
+    </AssociationSet>
+    <AssociationSet Name="fk_cliente_venta" Association="Self.fk_cliente_venta">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Venta" EntitySet="Venta" />
+    </AssociationSet>
+    <AssociationSet Name="fk_id_categoria_libro" Association="Self.fk_id_categoria_libro">
+      <End Role="Categoria_libro" EntitySet="Categoria_libro" />
+      <End Role="Libro" EntitySet="Libro" />
+    </AssociationSet>
+    <AssociationSet Name="fk_personal" Association="Self.fk_personal">
+      <End Role="Personal" EntitySet="Personal" />
+      <End Role="Checada" EntitySet="Checada" />
+    </AssociationSet>
+    <AssociationSet Name="fk_personal_prestamo" Association="Self.fk_personal_prestamo">
+      <End Role="Personal" EntitySet="Personal" />
+      <End Role="Prestamo" EntitySet="Prestamo" />
+    </AssociationSet>
+    <AssociationSet Name="fk_personal_venta" Association="Self.fk_personal_venta">
+      <End Role="Personal" EntitySet="Personal" />
+      <End Role="Venta" EntitySet="Venta" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PrestamoLibro_Libro" Association="Self.fk_PrestamoLibro_Libro">
+      <End Role="Libro" EntitySet="Libro" />
+      <End Role="PrestamoLibro" EntitySet="PrestamoLibro" />
+    </AssociationSet>
+    <AssociationSet Name="fk_PrestamoLibro_Prestamo" Association="Self.fk_PrestamoLibro_Prestamo">
+      <End Role="Prestamo" EntitySet="Prestamo" />
+      <End Role="PrestamoLibro" EntitySet="PrestamoLibro" />
+    </AssociationSet>
+    <AssociationSet Name="fk_tipo_prestamo" Association="Self.fk_tipo_prestamo">
+      <End Role="Tipo_De_Prestamo" EntitySet="Tipo_De_Prestamo" />
+      <End Role="Prestamo" EntitySet="Prestamo" />
+    </AssociationSet>
+    <AssociationSet Name="fk_VentaLibro_Libro" Association="Self.fk_VentaLibro_Libro">
+      <End Role="Libro" EntitySet="Libro" />
+      <End Role="VentaLibro" EntitySet="VentaLibro" />
+    </AssociationSet>
+    <AssociationSet Name="fk_VentaLibro_Venta" Association="Self.fk_VentaLibro_Venta">
+      <End Role="Venta" EntitySet="Venta" />
+      <End Role="VentaLibro" EntitySet="VentaLibro" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

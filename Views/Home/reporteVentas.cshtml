@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "reporteVentas";
+}
+
+<style>
+    .card {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        height: 200px;
+        flex-direction: column;
+        position: relative;
+        width: 1400px;
+    }
+
+    .name-container {
+        position: relative;
+        width: 200px; /* ajustar el ancho según sea necesario */
+    }
+
+    .card-info-table {
+        position: absolute;
+        top: 0;
+        right: 0;
+        overflow-y: scroll;
+        max-height: 150px; /* ajustar según sea necesario */
+    }
+</style>
+
+<h2>Reporte de Ventas</h2>
+@{ int i = 0; string space = " ";}
+<div id="cards">
+    @foreach (var venta in ViewBag.ventas)
+    {
+        <div class="row">
+            <div class="col s12">
+                <div class="card" id="card_@venta.id_venta">
+                    <div class="card-content">
+                        <div class="card-info-wrapper">
+                            <div class="card-info">
+                                <div class="card-info-title">
+                                    <h3>Venta # @venta.id_venta</h3>
+                                </div>
+                                <div class="card-info-data">
+                                    <div class="card-info-label">Vendedor:</div>
+                                    <div class="card-info-value">
+                                        @{
+                                            foreach (var vendedor in ViewBag.Personal)
+                                            {
+                                                if (vendedor.id_personal == venta.id_personal)
+                                                {
+                                                    <div class="name-container">@vendedor.nombre @space @vendedor.apellido</div>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <div class="card-info-data">
+                                    <div class="card-info-label">Cliente:</div>
+                                    <div class="card-info-value">
+                                        @{
+                                            foreach (var cliente in ViewBag.Clientes)
+                                            {
+                                                if (cliente.id_cliente == venta.id_cliente)
+                                                {
+                                                    <div class="name-container">@cliente.nombre @space @cliente.apellido</div>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                                <div class="card-info-table">
+
+                                </div>
+                                <div class="card-info-data">
+                                    <div class="card-info-label">Fecha:</div>
+                                    <div class="card-info-value">@venta.fecha_venta.ToShortDateString()</div>
+                                </div>
+                                <div class="card-info-data">
+                                    <div class="card-info-label">Total:</div>
+                                    <div class="card-info-value">
+                                        @{
+                                            decimal total = 0;
+                                            foreach (var ventaLibro in ViewBag.VentasLibros)
+                                            {
+                                                if (ventaLibro.id_venta == venta.id_venta)
+                                                {
+                                                    foreach (var libro in ViewBag.Libros)
+                                                    {
+                                                        if (libro.id_libro == ventaLibro.id_libro)
+                                                        {
+                                                            decimal suma = libro.precio * ventaLibro.cantidad;
+                                                            total += suma;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        @total
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table>
+                    <tr>
+                        <th>Libro</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                    </tr>
+                    @foreach (var ventaLibro in ViewBag.VentasLibros)
+                    {
+                        if (ventaLibro.id_venta == venta.id_venta)
+                        {
+                            <tr>
+                                <td>
+                                    @{
+                                        foreach (var libro in ViewBag.Libros)
+                                        {
+                                            if (libro.id_libro == ventaLibro.id_libro)
+                                            {
+                                                @libro.titulo
+                                            }
+                                        }
+                                    }
+                                </td>
+                                <td style="text-align:center">@ventaLibro.cantidad</td>
+                                <td>
+                                    @{
+                                        foreach (var libro in ViewBag.Libros)
+                                        {
+                                            if (libro.id_libro == ventaLibro.id_libro)
+                                            {
+                                                @libro.precio;
+                                            }
+                                        }
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    document.getElementById("cards").onmousemove = e => {
+        for (const card of document.getElementsByClassName("card")) {
+            const rect = card.getBoundingClientRect(),
+                x = e.clientX - rect.left,
+                y = e.clientY - rect.top;
+
+            card.style.setProperty("--mouse-x", `${x}px`);
+            card.style.setProperty("--mouse-y", `${y}px`);
+        };
+    }
+</script>

@@ -1,0 +1,212 @@
+﻿
+@{
+    ViewBag.Title = "Formulario Checadas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (ViewBag.Checada != null)
+{
+    <h2>Corregir Checada</h2>
+}
+else
+{
+    <h2>Registrar Checada</h2>
+}
+<head>
+    <style>
+        input[type="text"], select {
+            color: #757575;
+        }
+
+        body {
+            color: #fff
+        }
+
+        td {
+            border: 1px solid white;
+        }
+
+        .picker__date-display, .picker__weekday-display {
+            background-color: #ffc400;
+        }
+        /* Change the background color */
+        .datepicker-modal, .timepicker-modal {
+            background-color: #1a1a1a;
+        }
+
+        .timepicker-display-column, .timepicker-span-minutes, .timepicker-span-hours, .year-text, .date-text {
+            color: #1a1a1a;
+        }
+
+        .modal-timepicker, .datepicker-canvas-line {
+            background-color: #ffc400;
+        }
+
+        /* Change the background color of the table header */
+        .datepicker-header th {
+            background-color: #ff4c00;
+        }
+
+        /* Change the background color of the selected date */
+        .datepicker-selected {
+            background-color: lightyellow;
+        }
+
+        .datepicker-date-display {
+            background-color: #FFc400;
+            color: #000;
+        }
+
+        .timepicker-digital-display {
+            background-color: #FFc400;
+            color: #FFF;
+        }
+
+        .datepicker-calendar td.is-selected .datepicker-day-button {
+            background-color: #ffc400;
+            color: #000;
+        }
+
+        .datepicker-calendar td.is-today .datepicker-day-button {
+            color: #ffc400;
+        }
+
+        .datepicker-done {
+            color: #ffc400;
+        }
+
+        .datepicker-cancel {
+            color: #ffc400;
+        }
+
+        .timepicker-close {
+            color: #ffc400;
+        }
+
+        .timepicker-tick.active,
+        .timepicker-tick:hover {
+            background-color: rgba(255, 196, 00, 0.25);
+        }
+
+        .datepicker-day-button:focus {
+            background-color: rgba(255, 196, 00, 0.25);
+        }
+
+        .timepicker-canvas line {
+            stroke: #FFc400;
+            stroke-width: 4;
+            stroke-linecap: round;
+        }
+
+        .timepicker-canvas-bearing {
+            stroke: none;
+            fill: #FFc400;
+        }
+
+        .timepicker-canvas-bg {
+            stroke: none;
+            fill: #FFc400;
+        }
+    </style>
+
+</head>
+<script>
+    var UrlGuardarChecada = '@Url.Action("guardarChecada", "Home")';
+</script>
+<script>
+    var options = {
+        format: 'dd/MM/yyyy',
+        autoClose: true,
+        defaultDate: new Date(),
+        setDefaultDate: true
+    };
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.datepicker');
+        var instances = M.Datepicker.init(elems, options);
+    });
+</script>
+
+<script>
+    var options = {
+        autoClose: true,
+        twelveHour: false
+    };
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.timepicker');
+        var instances = M.Timepicker.init(elems, options);
+    });
+</script>
+<script src="~/Scripts/JS_Checada.js"></script>
+<div class="row">
+
+    <div class="input-field col s12 m4 l2">
+        <select id="id_personal">
+            @foreach(var persona in ViewBag.Personal)
+            {
+                <option value="@persona.id_personal">@persona.nombre @persona.apellido</option>
+            }
+        </select>
+        <label>Empleado</label>
+    </div>
+    <div class="col s12 m4 l2">
+        <label>Fecha de Checada</label>
+        @if (ViewBag.Checada != null)
+        {
+            <input type="text" id="fecha" name="fecha" class="datepicker" value="@ViewBag.Checada.fecha" />
+        }
+        else
+        {
+            <input type="text" id="fecha" name="fecha" class="datepicker" />
+        }
+    </div>
+    <div class="col s12 m4 l2">
+        <label>Horario de Entrada</label>
+        @if (ViewBag.Checada != null)
+        {
+            <input type="text" id="hora_entrada" name="hora_entrada" class="timepicker" value="@ViewBag.Checada.hora_entrada" />
+        }
+        else
+        {
+            <input type="text" id="hora_entrada" name="hora_entrada" class="timepicker" />
+        }
+    </div>
+
+    <div class="col s12 m4 l2">
+        <label>Horario de Salida</label>
+        @if (ViewBag.Checada != null)
+        {
+            <input type="text" id="hora_salida" name="hora_salida" class="timepicker" value="@ViewBag.Checada.hora_salida" />
+
+        }
+        else
+        {
+            <input type="text" id="hora_salida" name="hora_salida" class="timepicker" />
+
+        }
+    </div>
+
+</div>
+<br />
+@if (ViewBag.Checada != null)
+{
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarChecada()" class="btn btn-success amber accent-3">Guardar Cambios</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarChecada()" class="btn btn-success amber accent-3">Registrar Checada</a>
+        </div>
+    </div>
+}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var sel = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(sel);
+    });
+</script>

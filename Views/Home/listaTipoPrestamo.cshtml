@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Tipo Préstamo";
+}
+
+<h2>Tipos de Préstamos</h2>
+
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .delete-column {
+            padding-right: 20px;
+        }
+
+        th:nth-child(1), td:nth-child(1) {
+            width: 20%;
+        }
+
+        th:nth-child(2), td:nth-child(2) {
+            width: 60%;
+        }
+
+        th:nth-child(3), td:nth-child(3), th:nth-child(4), td:nth-child(4) {
+            width: 10%;
+        }
+    </style>
+</head>
+<a href="~/Home/formularioTipoPrestamo" type="button" class="waves-effect waves-light btn amber accent-3"><i class="material-icons right">add_circle_outline</i>Añadir Nuevo tipo de Prestamo</a>
+<table class="responsive-table">
+    <tr>
+        <th>Tipo de Prestamo</th>
+        <th>Descripción detallada</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        if (item.activo == true)
+        {
+            <tr>
+                <td>@item.tipo_prestamo</td>
+                <td>@item.descripcion</td>
+                <td style="text-align:center;">
+                    <a class="waves-effect waves-light btn amber accent-3" href="~/Home/formularioTipoPrestamo?IDTipoPrestamo=@item.id_tipo_prestamo" style="font-size:24px; display:block; margin-right:15px;"><i class="material-icons">border_color</i></a>
+                </td>
+                <td style="text-align:center;" class="delete-column">
+                    <a class="waves-effect waves-light btn" href="~/Home/EliminarTipoPrestamo?IDTipoPrestamo=@item.id_tipo_prestamo" style="font-size: 24px; display: block; margin-right: 40px; color: white; background-color: rgb(255, 82, 82);"><i class="material-icons">delete</i></a>
+                </td>
+            </tr>
+        }
+    }
+</table>

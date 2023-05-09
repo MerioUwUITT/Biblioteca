@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Formulario Tipo Préstamo";
+}
+<head>
+    <style>
+        input[type="text"], select {
+            color: #fff;
+        }
+    </style>
+
+</head>
+
+@if (ViewBag.TipoPrestamo != null)
+{
+    <h2>Modificar Tipo de Préstamo</h2>
+}
+else
+{
+    <h2>Agregar Tipo de Préstamo</h2>
+}
+<script>
+    var UrlGuardarTipoPrestamo = '@Url.Action("guardarTipoPrestamo","Home")';
+</script>
+<script src="~/Scripts/JS_TipoPrestamo.js"></script>
+<div class="row">
+    <div class="col s12 m6 l2">
+        <label>Tipo de Prestamo</label>
+
+        @if (ViewBag.TipoPrestamo != null)
+        {
+            <input type="text" id="tipo_prestamo" name="tipo_prestamo" class="form-control" value="@ViewBag.TipoPrestamo.tipo_prestamo" />
+        }
+        else
+        {
+            <input type="text" id="tipo_prestamo" name="tipo_prestamo" class="form-control" />
+
+        }
+    </div>
+
+    <div class="col s12 m6 l10">
+        <label>descripcion</label>
+        @if (ViewBag.TipoPrestamo != null)
+        {
+            <input type="text" id="descripcion" name="descripcion" class="form-control" value="@ViewBag.TipoPrestamo.descripcion" />
+        }
+        else
+        {
+            <input type="text" id="descripcion" name="descripcion" class="form-control" />
+
+        }
+    </div>
+</div>
+<br />
+@if (ViewBag.TipoPrestamo != null)
+{
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarTipoPrestamo()" class="btn btn-success amber accent-3">Guardar Cambios</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-2">
+            <a href="javascript:guardarTipoPrestamo()" class="btn btn-success amber accent-3">Registra Tipo de Prestamo</a>
+        </div>
+    </div>
+}
